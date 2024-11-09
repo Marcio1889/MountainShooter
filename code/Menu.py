@@ -6,7 +6,7 @@ from msilib.schema import Font
 import pygame
 from pygame import Surface, Rect
 
-from code.Const import WIN_WIDTH, COLOR_ORANGE, MENU_OPTION,  COLOR_WHITE
+from code.Const import WIN_WIDTH, COLOR_ORANGE, MENU_OPTION,  COLOR_WHITE , COLOR_YELLOW
 
 
 class Menu:
@@ -17,6 +17,7 @@ class Menu:
         self.rect = self.surf.get_rect(left=0, top=0)
 
     def run(self,):
+        menu_option = 0
         pygame.mixer_music.load('./asset/Menu.mp3')
         pygame.mixer_music.play(-1)
         while True:
@@ -25,7 +26,10 @@ class Menu:
             self.menu_text(50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120))
 
             for i in range(len(MENU_OPTION)):
-                self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH / 2), 200 + 25 *i))
+                if i == menu_option:
+                    self.menu_text( 20, MENU_OPTION[i], COLOR_YELLOW, ((WIN_WIDTH / 2), 200 + 25 * i))
+                else:
+                    self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH / 2), 200 + 25 *i))
 
             pygame.display.flip()
 
