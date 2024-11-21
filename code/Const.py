@@ -22,6 +22,9 @@ ENTITY_SPEED = {
     'Enemy1' : 2,
     'Enemy2' : 1,
 }
+
+ENTITY_HEALTH = {'level1Bg0': 999, 'level1Bg1':999, 'level1Bg2':99, 'level1Bg3':999, 'level1Bg4':999, 'level1Bg5':999,
+                     'level1Bg6':999, 'Player1':300, 'Player2':300, 'Enemy1':50, 'Enemy2':60}
 # S
 SPAWN_TIME = 4000
 
