@@ -1,10 +1,11 @@
 import sys
 from msilib.schema import Font
+import random
 
 import pygame.display
 from pygame import Surface, Rect
 
-from code.Const import COLOR_WHITE, WIN_WIDTH, WIN_HEIGHT
+from code.Const import COLOR_WHITE, WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 
@@ -19,7 +20,13 @@ class level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('level1Bg'))
+        self.entity_list.append(EntityFactory.get_entity('Player1'))
         self.timeout = 20000 # 20 segundos
+
+        if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
+                self.entity_list.append(EntityFactory.get_entity('Player2'))
+        pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
+
 
 
 
@@ -37,6 +44,9 @@ class level:
                 if event.type == pygame.QUIT:
                     pygame.display.flip()
                     sys.exit()
+                if event.type == EVENT_ENEMY:
+                    choice = random.choice(('Enemy1', 'Enemy2'))
+                    self.entity_list.append(EntityFactory.get_entity(choice))
 
             # printed text
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', COLOR_WHITE, (10, 5))
