@@ -5,7 +5,7 @@ import random
 import pygame.display
 from pygame import Surface, Rect
 
-from code.Const import COLOR_WHITE, WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from code.Const import COLOR_WHITE, WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, COLOR_GREEN, COLOR_CYAN
 from code.Emeny import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -31,7 +31,7 @@ class level:
 
 
 
-    def run (self,):
+    def run (self,) -> object:
         pygame.mixer_music.load(f'./asset/{self.name}.mp3')
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
@@ -45,6 +45,11 @@ class level:
                     shoot = ent.shoot()
                     if shoot is not None:
                          self.entity_list.append(shoot)
+                if ent.name == 'Player1':
+                    self.level_text(14, f'Player1 - health: {ent.health}| Score: {ent.score}', COLOR_GREEN, (10, 25))
+                if ent.name == 'Player2':
+                    self.level_text(14, f'Player2 - health: {ent.health}| Score: {ent.score}', COLOR_CYAN,  (10, 45))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.display.flip()
@@ -52,6 +57,9 @@ class level:
                 if event.type == EVENT_ENEMY:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
+
+
+
 
             # printed text
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', COLOR_WHITE, (10, 5))
