@@ -55,7 +55,7 @@ class Level:
                 if ent.name == 'Player2':
                     self.level_text(14, f'Player2 - health: {ent.health}| Score: {ent.score}', COLOR_CYAN,  (10, 45))
 
-            for event in pygame.event.get():
+            for event in pygame.event.get(): # Fecha a Janela
                 if event.type == pygame.QUIT:
                     pygame.display.flip()
                     sys.exit()
